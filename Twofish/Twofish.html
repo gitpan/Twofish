@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<TITLE>Crypt::Twofish - Perl extension for Twofish. Twofish is a 128-bit block cipher. </TITLE>
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080">
+
+<P><!-- INDEX BEGIN --></P>
+
+<UL>
+<LI><A HREF="#NAME">NAME</A> </LI>
+<LI><A HREF="#SYNOPSIS">SYNOPSIS</A> </LI>
+<LI><A HREF="#DESCRIPTION">DESCRIPTION</A> </LI>
+<LI><A HREF="#INSTALLATION">INSTALLATION</A> </LI>
+<LI><A HREF="#AUTHOR">AUTHOR</A></LI></UL>
+
+<P><!-- INDEX END --></P>
+<P><HR></P>
+<H1><A NAME="NAME">NAME </A></H1>
+<P>Crypt::Twofish - Perl extension for Twofish. Twofish is a 128-bit block cipher. </P>
+<P><HR></P>
+<H1><A NAME="SYNOPSIS">SYNOPSIS </A></H1>
+<PRE>  use Crypt::Twofish; 
+
+  $ciphertext = Encipher($key,$keylength,$plaintext); 
+  $decryptedtext = Decipher($key,$keylength,$ciphertext,$cipherlength);
+  $lasterror = LastError();  
+  CheckTwofish();  </PRE>
+<P><HR></P>
+<PRE>    </PRE>
+<H1><A NAME="DESCRIPTION"></A>DESCRIPTION</H1>
+<PRE>   This module is a perl extension for the Twofish encryption algorithm. The 
+following are the four functions that this module supports:
+   1. Encipher
+   2. Decipher
+   3. LastError
+   4. CheckTwofish
+
+  Encipher takes the key, the key length and the message to be encrypted as 
+parameters and returns the ciphertext. This is a variation from the actual 
+Twofish algorithm which only accepts keys of length 128(16 bytes),194(24 bytes)
+or 256(32 bytes). What this algorithm does is, if the key length is not equal
+to 128, 194 or 256 bits, and less than 256, it appends the key to itself until
+the key length becomes equal to 256(32 bytes). If the key length is more than
+32 bytes then only the first 32 bytes are considered as the key. Basically, you 
+can use any key you want and the module would do the rest for you.
+You would typically call encipher as:
+
+  $ciphertext = Encipher($key,$keylength,$plaintext);
+
+Note: Remember to pass the key length parameter in bytes.
+
+  Decipher takes the key, keylength, ciphertext and the length of ciphertext 
+as parameters and returns the plain text. Even Decipher does the same kind 
+of key repitition as Encipher. Here it is important to remember that
+you have to use the same key with which you have encrypted, otherwise you get 
+garbled output. Decipher can typically be called as:
+
+  $decryptedtext = Decipher($key,$keylength,$ciphertext,$cipherlength);
+
+  $cipherlength is the length of the ciphertext, which is a multiple of 16 
+  (the block size). It can be useful for decrypting substrings. Once again
+  pass the key length in bytes.
+  
+  LastError is a very useful function when something goes wrong with Encipher 
+or decipher. It returns the last error that was encountered. It does not take 
+any arguments and can be simply called as:
+
+  $lasterror = LastError();
+
+  CheckTwofish is  equivalent to the underlying code's sanity check. It is 
+  called as:</PRE><DIR>
+<DIR>
+
+<P>$error=CheckTwofish();</P></DIR>
+</DIR>
+
+<P>If it returns anything but undef, something is wrong with the installation
+   of Crypt::Twofish, $error contains what went wrong.</P>
+<P><HR></P>
+<H1><A NAME="INSTALLATION">INSTALLATION </A></H1>
+<PRE> The following commands can be used to install this module:
+
+ perl Makefile.PL
+ make
+ make test
+ make install</PRE>
+<P><HR></P>
+<PRE> 
+ </PRE>
+<H1><A NAME="AUTHOR"></A>AUTHOR</H1>
+<PRE> Nishant Kakani, <A HREF="mailto:nishantkakani@hotmail.com">nishantkakani@hotmail.com</A>
+
+ I would like to thank <A HREF="http://www.xenoscience.com/">Xenoscience Inc</A>. and <A HREF="http://www.counterpane.com/">Counterpane Systems</A>, without whose help 
+I wouldn't have written this module.
+</PRE>
+<P><HR></P>
+<PRE> </PRE>
+<H1>SEE ALSO</H1>
+<PRE>
+ More about the Twofish algorithm can be found at the following site:
+ 
+ <A HREF="http://www.counterpane.com/twofish.html">http://www.counterpane.com/twofish.html</A></PRE></BODY>
+</HTML>
